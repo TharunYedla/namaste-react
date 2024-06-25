@@ -1,57 +1,8 @@
-/**
- * 
- * <div id = "parent">
- * <div id = "child">
- * <h1> I'm a h1 tag</h1>
- * <h2> I'm a h2 tag</h2>
- * </div>
- * <div id ="child2">
- * <h1> I'm a h1 tag </h1>
- * <h2> I'm a h2 tag</h2>
- * </div>
- * </div>
- * 
- */
 import React from "react";
 import ReactDOM from "react-dom/client";
+import RestaurantCard from "./RestaurantCard";
+import { useState } from "react";
 
-
-const Header = () => {
-    return (
-        <div className="Header">
-        <div className="logo-container">
-            <img className="logo"
-             src="https://www.logodesign.net/logo/smoking-burger-with-lettuce-3624ld.png"
-            />
-            </div>
-            <div className="nav-items">
-                <ul>
-                    <li>Home</li>
-                    <li>About Us</li>
-                    <li>Contact Us</li>
-                    <li>Cart</li>
-                </ul>
-            </div>
-        </div>
-
-    );
-};
-
-const RestaurantCard = (props) => {
-    const { resData } = props;
-
-    return(
-        <div className="res-card" style={{background: "#f0f0f0" }}>
-            <img className="res-logo"
-            alt="res-logo"
-            src={"https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_660/" + resData.info.cloudinaryImageId} />
-        <h3> {resData.info.name}</h3>
-        <h4>{resData.info.cuisines.join(",")}</h4>
-        <h4>{resData.info.avgRating}stars</h4>
-        <h4>{resData.info.deliveryTime}</h4>
-        </div>
-    );
-};
 
 const resList = [
     {
@@ -1869,29 +1820,26 @@ const resList = [
     }
   ];
 
+export const Body = () => {
+    const [listOfRestaurants, setListOfRestaurant] = useState(resList);
 
-
-const Body = () => {
     return (
         <div className="body">
-            <div className="search">Search</div>
+            <div className="filter">
+              <button className="filter-btn"
+              onClick={() => {
+                const filteredList = listOfRestaurants.filter(
+                    (res) => res.data.avgRating > 4
+                );
+                setListOfRestaurant(filteredList);
+              }}
+               >
+                Top Rated Restaurants</button>
+            </div>
             <div className="res-container">
-           { resList.map((restaurant) => (<RestaurantCard key = {restaurant.info.id}
+           { listOfRestaurants.map((restaurant) => (<RestaurantCard key = {restaurant.info.id}
            resData={restaurant}/>)) }
             </div>
         </div>
     );
 };
-
-
-const AppLayout = () => {
-    return ( <div className="app">
-        <Header/>
-        <Body/>
-    </div>
-    );
-};
-
-const root = ReactDOM.createRoot(document.getElementById("root"));
-
-root.render(<AppLayout/>);

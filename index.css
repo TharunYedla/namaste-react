@@ -43,3 +43,8 @@
 .res-logo {
     width: 190px;
 }
+
+.filter {
+    margin: 10px;
+    cursor: pointer;
+}
