@@ -7,8 +7,7 @@ import { Shimmer } from "./Shimmer";
     },[]);
 
     const fetchMenu = async () =>{
-        const data = await fetch ("https://www.swiggy.com/dapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=12.9352403&lng=77.624532&restaurantId=25620"
-        );
+        const data = await fetch ("https://www.swiggy.com/dapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=12.9352403&lng=77.624532&restaurantId=25620");
         const json = await data.json();
         console.log(json);
         setResInfo(json.data);
@@ -18,7 +17,7 @@ import { Shimmer } from "./Shimmer";
         <Shimmer />;
     return (
         <div className="menu">
-            <h1>{resInfo?.data?.cards[1]?.card?.card?.info?.name}</h1>
+            <h1>{resInfo?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants[0]?.info?.name}</h1>
             <h2>Menu</h2>
             <ul>
                 <li>Biryani</li>
