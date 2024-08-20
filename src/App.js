@@ -12,7 +12,7 @@
  * </div>
  * 
  */
-import React from "react";
+import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom/client";
 
 import {Header} from './components/Header';
@@ -23,13 +23,25 @@ import { Error } from "./Error";
 import RestaurantMenu from "./components/RestaurantMenu";
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
 import { lazy, Suspense } from "react";
+import { UserContext } from "./utils/UserContext";
 
 const Grocery = lazy(() => import("./components/Grocery"));
 const AppLayout = () => {
-    return ( <div className="app">
+
+    const [userName, setUserName] = useState();
+    useEffect(() => {
+        const data = {
+            name: "Tharun Kumar",
+        };
+        setUserName(data.name);
+    },[]);
+    return ( 
+    <UserContext.Provider value={{loggedInUser: userName, setUserName}}>
+    <div className="app">
         <Header/>
         <Outlet />
     </div>
+    </UserContext.Provider>
     );
 };
 

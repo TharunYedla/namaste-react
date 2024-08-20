@@ -1,9 +1,10 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useContext} from "react";
 import ReactDOM from "react-dom/client";
 import RestaurantCard from "./RestaurantCard";
 import { useState, useEffect } from "react";
 import { Shimmer } from "./Shimmer";
 import { useOnlineStatus } from "../utils/useOnlineStatus";
+import { UserContext } from "../utils/UserContext";
 
 
 
@@ -11,6 +12,7 @@ export const Body = () => {
     const [listOfRestaurants, setListOfRestaurant] = useState([]);
     const [filteredRestaurant, setFilteredRestaurant] = useState([]);
     const [searchText, setsearchText] = useState([]);
+    
 
     useEffect ( () => {
         fetchData();
@@ -33,6 +35,8 @@ export const Body = () => {
     </h1>
     );
 
+    const {loggedInUser,setUserName} = useContext(UserContext);
+
     if(listOfRestaurants.length === 0){
       return <Shimmer/>;
     }
@@ -41,8 +45,8 @@ export const Body = () => {
         <div className="body">
             <div className="filter flex">
               <div className="search m-4 p-4">
-                <input type="text" className="border border-solid border-black"
-                 value={searchText} onChange={(e)=>
+                <input type="text" className="border border-solid border-black" 
+                value={searchText} onChange={(e)=>
                   {setsearchText(e.target.value);
 
                   }}/>
@@ -65,6 +69,13 @@ export const Body = () => {
               }}
                >
                 Top Rated Restaurants</button>
+              </div>
+              <div className="search m-4 p-4 flex items-center">
+                <label>UserName :</label>
+                <input className="border border-black p-2"
+                value = {loggedInUser}
+                onChange={(e)=> setUserName(e.target.value)}/>
+                 
               </div>
               
             </div>
