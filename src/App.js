@@ -1,17 +1,4 @@
-/**
- * 
- * <div id = "parent">
- * <div id = "child">
- * <h1> I'm a h1 tag</h1>
- * <h2> I'm a h2 tag</h2>
- * </div>
- * <div id ="child2">
- * <h1> I'm a h1 tag </h1>
- * <h2> I'm a h2 tag</h2>
- * </div>
- * </div>
- * 
- */
+
 import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom/client";
 
@@ -26,7 +13,7 @@ import { lazy, Suspense } from "react";
 import { UserContext } from "./utils/UserContext";
 import { Provider } from "react-redux";
 import { appStore } from "./utils/appStore";
-
+import { Cart } from "./components/Cart";
 const Grocery = lazy(() => import("./components/Grocery"));
 const AppLayout = () => {
 
@@ -76,6 +63,10 @@ const appRouter = createBrowserRouter( [
         {
             path: "/restaurants/:resId",
             element: <RestaurantMenu />
+        },
+        {
+            path: "/cart",
+            element: <Cart />,
         },
     ],
     errorElement: <Error />
